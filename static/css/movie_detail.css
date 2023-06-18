@@ -1,0 +1,102 @@
+
+    /* Стили для фильмов */
+    .movie-card {
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+        border-radius: 0.25rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+    }
+
+    .movie-card-header {
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #dee2e6;
+        border-radius: 0.25rem 0.25rem 0 0;
+        padding: 1rem;
+    }
+
+    .movie-card-header h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 0;
+    }
+
+    .movie-card-header p {
+        font-size: 1.25rem;
+        margin-bottom: 0;
+    }
+
+    .movie-card-body {
+        padding: 1rem;
+    }
+
+    .movie-card-body p {
+        font-size: 1.25rem;
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+        text-align: justify;
+    }
+
+    /* Стили для информации о фильмах */
+    .sidebar {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 0.25rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 1rem;
+        margin-bottom: 30px;
+    }
+
+    .sidebar h2 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+
+    .sidebar p {
+        font-size: 1.125rem;
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+        text-align: justify;
+    }
+
+    .sidebar ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .sidebar li {
+        font-size: 1.125rem;
+        line-height: 1.5;
+        margin-bottom: 20px;
+        text-align: justify;
+    }
+
+    .sidebar li:last-child {
+        margin-bottom: 0;
+    }
+
+    .sidebar li span {
+        font-weight: bold;
+        margin-right: 0.5rem;
+    }
+
+    /* Стили для комментариев */
+    .comments {
+        margin-bottom: 30px;
+    }
+
+    .comment {
+        margin-bottom: 20px;
+    }
+
+    .comment .alert {
+        margin-bottom: 0;
+    }
+
+    /* Стили для формы комментариев */
+    .comment-form {
+        margin-bottom: 30px;
+    }

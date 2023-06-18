@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_content %}
+<link rel="stylesheet" href="{% static 'css/movie_detail.css' %}">
+
+{% block title %}
+<title>{{request.GET.detail}} — MoviesDB</title>
+{% endblock %}
+<div class="container py-4">
+    {% for i in detail_response %}
+    <div class="row">
+        <div class="col-md-8">
+            <div class="movie-card">
+                <div class="movie-card-header">
+                    <h1>{{ i.name }}</h1>
+                    <p>{{ i.year }} год | {{ i.rating }} КиноПоиск | {{ i.movieLength }} мин.</p>
+                </div>
+                <div class="movie-card-body">
+                    <img src="{{ i.poster }}" alt="{{ i.name }}" class="img-fluid mb-3">
+                    <p>{{ i.description }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="sidebar">
+                <h2>Информация о фильме</h2>
+                <ul>
+                    <li>
+                        <span>Жанр:</span>
+                        {% for genre in i.genres %}
+                        {{ genre }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </li>
+                    <li>
+                        <span>Страна:</span>
+                        {% for country in i.countries %}
+                        {{ country }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </li>
+                    <li>
+                        <span>Описание:</span>
+                        {{ i.description }}
+                    </li>
+                    {% if i.logo %}
+                    <li>
+                        <img src="{{ i.logo }}" height="400" width="300">
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+
+    {% if bookmark %}
+    <a type="btn" class="btn btn-danger" href="{% url 'remove_bookmark' %}?title={{ title }}">Удалить из закладок
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+             class="bi bi-bookmark-fill" viewBox="0 0 16 16">
+            <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/>
+        </svg>
+    </a>
+    {% else %}
+    <a type="btn" class="btn btn-danger" href="{% url 'add_bookmark' %}?title={{ title }}">Добавить в закладки
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+             class="bi bi-bookmark" viewBox="0 0 16 16">
+            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+        </svg>
+    </a>
+    {% endif %}
+
+
+    {% if comments %}
+    <div class="comments">
+        <h2>Комментарии:</h2>
+        {% for comment in comments %}
+        <div class="comment">
+            <div class="alert alert-primary" role="alert">
+                {{ comment.date }}&nbsp;<b>{{ comment.author }}</b>:
+            </div>
+            <div class="alert alert-light" role="alert">
+                {{ comment.body }}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+    <div class="comment-form">
+        <br>
+        <h3>Оставьте комментарий:</h3>
+        {% for i in detail_response %}
+        <form action="{% url 'movie_detail' %}?detail={{ i.name }}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.body }}
+            </div>
+            <button type="submit" class="btn btn-primary">Отправить</button>
+        </form>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="comment-form">
+        <h3>Оставьте комментарий:</h3>
+        <p>Чтобы оставить комментарий, пожалуйста, <a href="{% url 'login' %}">войдите в систему</a>.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

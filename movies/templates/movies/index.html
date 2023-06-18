@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_content %}
+<!--<link rel="stylesheet" href="{% static 'css/index.css' %}">-->
+
+<div class="d-flex justify-content-center align-items-center bg-light" style="min-height: 90vh;">
+    <div class="card p-5 rounded-3 shadow-lg" style="max-width: 600px;">
+        <form class="form-inline" method="get" action="{% url 'get_movie' %}">
+            <div class="form-group mx-sm-3 mb-2">
+                <label for="search" class="sr-only">Search</label>
+                <input type="text" class="form-control" id="search" name="search" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Search</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
