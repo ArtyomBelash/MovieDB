@@ -20,15 +20,16 @@
     </div>
     {% if user.is_authenticated %}
     <div align="right">
-        <ul class="navbar-nav me-auto">
+        <ul class="navbar-nav ml-auto">
             {% if user.is_staff %}
             <li class="nav-item dropdown">
                 <button class="nav-link dropdown-toggle btn btn-primary" style="color: #fff;" data-bs-toggle="dropdown"
                         role="button"
                         aria-haspopup="true" aria-expanded="false">{{ user.username }}
                 </button>
-                <div class="dropdown-menu">
+                <div class="dropdown-menu dropdown-menu-end">
                     <a class="dropdown-item" href="/admin/">Админ</a>
+                    <a class="dropdown-item" href="{% url 'bookmarks' %}">Закладки</a>
                     <a class="dropdown-item" href="{% url 'logout' %}">Выйти</a>
                 </div>
             </li>
@@ -40,6 +41,7 @@
                 </button>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="{% url 'logout' %}">Выйти</a>
+                    <a class="dropdown-item" href="{% url 'bookmarks' %}">Закладки</a>
                 </div>
             </li>
         </ul>

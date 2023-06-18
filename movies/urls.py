@@ -7,5 +7,6 @@ urlpatterns = [
     path('movie/', DetailMovie.as_view(), name='movie_detail'),
     path('add_bookmark', AddBookmark.as_view(), name='add_bookmark'),
     path('remove_bookmark', RemoveBookmark.as_view(), name='remove_bookmark'),
+    path('bookmarks', BookmarksView.as_view(), name='bookmarks'),
 
 ]

@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 import requests
 from django.views.generic import TemplateView, ListView, FormView, CreateView, DeleteView
@@ -103,3 +104,14 @@ class RemoveBookmark(DeleteView):
         if not request.user.is_authenticated:
             return redirect('index')
         return super().dispatch(request, *args, **kwargs)
+
+
+class BookmarksView(LoginRequiredMixin, ListView):
+    model = Bookmark
+    template_name = 'movies/bookmarks.html'
+    context_object_name = 'bookmarks'
+    login_url = '/account/login'
+
+    def get_queryset(self):
+        profile = Profile.objects.get(user=self.request.user)
+        return super().get_queryset().filter(user=profile)
