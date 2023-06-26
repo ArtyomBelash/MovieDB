@@ -8,7 +8,7 @@ from django.conf import settings
 def createProfile(sender, instance, created, **kwargs):
     if created:
         user = instance
-        profile = Profile.objects.create(user=user, username=user.username, email=user.email, name=user.first_name, )
+        profile = Profile.objects.create(user=user, username=user.username, email=user.email, name=user.username)
 
 
 post_save.connect(createProfile, sender=User)

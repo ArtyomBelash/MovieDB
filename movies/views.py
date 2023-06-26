@@ -84,10 +84,10 @@ class AddBookmark(CreateView):
         if bookmark:
             return redirect(request.META.get('HTTP_REFERER'))
 
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect('index')
-        return super().dispatch(request, *args, **kwargs)
+    # def dispatch(self, request, *args, **kwargs):
+    #     if not request.user.is_authenticated:
+    #         return redirect('index')
+    #     return super().dispatch(request, *args, **kwargs)
 
 
 class RemoveBookmark(DeleteView):
@@ -111,6 +111,7 @@ class BookmarksView(LoginRequiredMixin, ListView):
     template_name = 'movies/bookmarks.html'
     context_object_name = 'bookmarks'
     login_url = '/account/login'
+    paginate_by = 8
 
     def get_queryset(self):
         profile = Profile.objects.get(user=self.request.user)

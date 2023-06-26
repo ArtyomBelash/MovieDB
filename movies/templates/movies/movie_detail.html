@@ -52,7 +52,7 @@
     </div>
     {% endfor %}
 
-
+    {% if request.user.is_authenticated %}
     {% if bookmark %}
     <a type="btn" class="btn btn-danger" href="{% url 'remove_bookmark' %}?title={{ title }}">Удалить из закладок
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -68,7 +68,32 @@
         </svg>
     </a>
     {% endif %}
+    {% else %}
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Добавить в закладки
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+             class="bi bi-bookmark" viewBox="0 0 16 16">
+            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+        </svg>
+    </button>
 
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Пожалуйста, пройдите регистрацию или авторизуйтесь</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    Только авторизованные пользователи могут добавлять закладки.
+                </div>
+                <div class="modal-footer">
+                    <a href="{% url 'register' %}" class="btn btn-danger">Регистрация</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 
     {% if comments %}
     <div class="comments">

@@ -1,0 +1,49 @@
+
+    body {
+        overflow: hidden;
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 93vh;
+    }
+
+    .card {
+        width: 600px;
+    }
+
+    .card-title {
+        font-size: 32px;
+    }
+
+    .form-label {
+        font-size: 16px;
+        color: #4d4d4d;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        font-size: 20px;
+        background-color: #f2f2f2;
+        border: none;
+        border-radius: 8px;
+        padding: 12px 16px;
+        margin-bottom: 7px;
+        width: 100%;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+        outline: 1;
+        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .invalid-feedback {
+        color: #ff0000;
+        margin-top: 8px;
+        font-size: 14px;
+    }

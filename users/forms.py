@@ -3,17 +3,15 @@ from django.contrib.auth.models import User
 from django import forms
 from django.core.exceptions import ValidationError
 
-from .models import Profile
-
 
 class CustomUserCreationForm(UserCreationForm):
-    email = forms.EmailField(required=True)
+    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class': 'form-group'}))
 
     class Meta:
         model = User
 
         fields = ['username',
-                  'password1', 'password2']
+                  'password1', 'password2', 'email']
 
     def __init__(self, *args, **kwargs):
         super(CustomUserCreationForm, self).__init__(*args, **kwargs)
@@ -34,7 +32,3 @@ class CustomUserLoginForm(AuthenticationForm):
 
     def __int__(self, *args, **kwargs):
         super().__init__(self, *args, **kwargs)
-
-    # def __init__(self, *args, **kwargs):
-    #     super(CustomUserLoginForm, self).__init__(*args, **kwargs)
-
