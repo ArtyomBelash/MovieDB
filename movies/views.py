@@ -54,6 +54,7 @@ class DetailMovie(TemplateView, FormView):
                 'accept': 'application/json'}
             response = requests.get(url, headers=headers).json()['docs']
             context['detail_response'] = response
+            print(f"Movie ID - {context['detail_response'][0]['id']}")
             api = API.objects.get_or_create(name=title, url=url)
             context['comments'] = Comment.objects.filter(movie=api[0])
             if self.request.user.is_authenticated:
