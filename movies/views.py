@@ -4,7 +4,7 @@ import requests
 from django.views.generic import TemplateView, ListView, FormView, CreateView, DeleteView
 from urllib.parse import quote
 
-from config import settings
+from django.conf import settings
 from .models import Profile, Bookmark
 from .forms import CommentForm
 from .models import API, Comment

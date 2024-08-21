@@ -29,7 +29,6 @@ class Bookmark(models.Model):
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     movie = models.ForeignKey(API, on_delete=models.CASCADE)
 
-
     def __str__(self):
         return f'{self.user} - {self.movie.name}'
 

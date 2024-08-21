@@ -8,7 +8,7 @@ BASE_DIR = root()
 
 SECRET_KEY = env.str('SECRET_KEY')
 DEBUG = env.bool('DEBUG', default=False)
-ALLOWED_HOSTS = env.str('ALLOWED_HOSTS', default='').split(' ')
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
 API_KEY = env.str('API_KEY')
 REQUEST_URL = env.str('REQUEST_URL')
 REQUEST_URL_DETAIL = env.str('REQUEST_URL_DETAIL')
@@ -42,7 +42,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [os.path.join('templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,7 +79,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'Ru-RU'
 
 TIME_ZONE = 'UTC'
 

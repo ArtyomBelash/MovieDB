@@ -13,11 +13,11 @@
             <div class="movie-card">
                 <div class="movie-card-header">
                     <h1>{{ i.name }}</h1>
-                    <p>{{ i.year }} год | {{ i.rating }} КиноПоиск | {{ i.movieLength }} мин.</p>
+                    <p>{{ i.year }} год | {{ i.rating.kp }} КиноПоиск | {{ i.movieLength }} мин.</p>
                 </div>
                 <div class="movie-card-body">
                     {% if i.poster %}
-                <img src="{{ i.poster }}" alt="{{ i.name }}" class="img-fluid mb-3">
+                <img src="{{ i.poster.url }}" alt="{{ i.name }}" class="img-fluid mb-3">
                 {% else %}
                 <img src="https://via.placeholder.com/300x450.png?text=NO+IMAGE" class="card-img-top movie-image"
                      alt="{{ i.title }}" width="600" height="800">
@@ -33,13 +33,13 @@
                     <li>
                         <span>Жанр:</span>
                         {% for genre in i.genres %}
-                        {{ genre }}{% if not forloop.last %}, {% endif %}
+                        {{ genre.name }}{% if not forloop.last %}, {% endif %}
                         {% endfor %}
                     </li>
                     <li>
                         <span>Страна:</span>
                         {% for country in i.countries %}
-                        {{ country }}{% if not forloop.last %}, {% endif %}
+                        {{ country.name }}{% if not forloop.last %}, {% endif %}
                         {% endfor %}
                     </li>
                     <li>
@@ -48,7 +48,7 @@
                     </li>
                     {% if i.logo %}
                     <li>
-                        <img src="{{ i.logo }}" height="400" width="300">
+                        <img src="{{ i.logo.url }}" height="400" width="300">
                     </li>
                     {% endif %}
                 </ul>

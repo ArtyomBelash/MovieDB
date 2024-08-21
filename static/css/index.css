@@ -1,5 +1,5 @@
-bg-image {
-    background-image: url('../img/film.jpg);
+.bg-image {
+    background-image: url('../img/film.jpg');
     background-size: cover;
     background-position: center center;
-  }
+}

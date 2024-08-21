@@ -11,15 +11,16 @@
     }
 
     .card {
-        width: 600px;
+        width: 500px;
+        height: 600px;
     }
 
     .card-title {
-        font-size: 32px;
+        font-size: 30px;
     }
 
     .form-label {
-        font-size: 16px;
+        font-size: 14px;
         color: #4d4d4d;
     }
 
