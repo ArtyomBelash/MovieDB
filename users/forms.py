@@ -14,7 +14,8 @@ class CustomUserCreationForm(UserCreationForm):
                   'password1', 'password2', 'email']
 
     def __init__(self, *args, **kwargs):
-        super(CustomUserCreationForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
+        self.fields.pop('usable_password', None)
 
     def clean_email(self):
         email = self.cleaned_data['email']
