@@ -39,27 +39,23 @@ class SearchMovie(ListView):
 class DetailMovie(TemplateView, FormView):
     template_name = 'movies/movie_detail.html'
     http_method_names = ['post', 'get']
-    context_object_name = 'detail_response'
     form_class = CommentForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.method == "GET":
-            title = self.request.GET.get('detail')
-            context['title'] = title
-            url_code = quote(title)
-            url = f'{settings.REQUEST_URL_DETAIL}{url_code}'
+            movie_id = self.request.GET.get('detail')
+            url = f'{settings.REQUEST_URL_DETAIL}{movie_id}'
             headers = {
                 'X-API-KEY': settings.API_KEY,
                 'accept': 'application/json'}
-            response = requests.get(url, headers=headers).json()['docs']
+            response = requests.get(url, headers=headers).json()
             context['detail_response'] = response
-            print(f"Movie ID - {context['detail_response'][0]['id']}")
-            api = API.objects.get_or_create(name=title, url=url)
-            context['comments'] = Comment.objects.filter(movie=api[0])
+            api = API.objects.get_or_create(name=response['name'], url=url)
+            context['comments'] = Comment.objects.filter(movie=api[0]).select_related('movie')
             if self.request.user.is_authenticated:
                 profile = Profile.objects.get(user=self.request.user)
-                bookmark = Bookmark.objects.filter(movie=api[0], user=profile)
+                bookmark = Bookmark.objects.filter(movie=api[0], user=profile).select_related('user')
                 if bookmark:
                     context['bookmark'] = bookmark
         return context
@@ -84,11 +80,6 @@ class AddBookmark(CreateView):
         bookmark = Bookmark.objects.get_or_create(user=profile, movie=movie)
         if bookmark:
             return redirect(request.META.get('HTTP_REFERER'))
-
-    # def dispatch(self, request, *args, **kwargs):
-    #     if not request.user.is_authenticated:
-    #         return redirect('index')
-    #     return super().dispatch(request, *args, **kwargs)
 
 
 class RemoveBookmark(DeleteView):

@@ -1,66 +1,70 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block page_content %}
-<link rel="stylesheet" href="{% static 'css/find_movie.css'%}">
-<body>
-<div class="container mt-4">
-    <form class="d-flex mb-4" method="get">
-        <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search" name="search"
-               value="{{ request.GET.search }}">
-        <button class="btn btn-primary" type="submit">Найти</button>
-    </form>
-</div>
-<div class="container movie-container">
-    {% if request.GET.search %}
-    <div class="row row-cols-1 row-cols-md-3 g-3">
-        {% for movie in response %}
-        <div class="col">
-            <div class="card h-100 movie-card">
-                {% if movie.poster %}
-                <img src="{{ movie.poster.url }}" class="card-img-top movie-image" alt="{{ movie.name }}">
-                {% else %}
-                <img src="https://via.placeholder.com/300x450.png?text=NO+IMAGE" class="card-img-top movie-image"
-                     alt="{{ movie.title }}">
-                {% endif %}
-                <div class="card-body movie-card-body">
-                    <h5 class="card-title movie-title"><a href="{% url 'movie_detail' %}?detail={{ movie.name }}">
-                        {{movie.name }}</a></h5>
-                    {% if movie.year %}
-                    <p class="card-text movie-year">Год: {{ movie.year }}</p>
-                    {% endif %}
-                    <p class="card-text movie-length">Продолжительность: {{ movie.movieLength }} мин.</p>
-                    <p class="card-text movie-rating">Рейтинг: {{ movie.rating.kp }}</p>
-                    <div class="movie-actors">
-                        <span class="movie-actor">Жанр: </span>
-                        {% for genre in movie.genres %}
-                        <span class="movie-actor">{{ genre.name }}{% if not forloop.last %}, {% endif %}</span>
-                        {% endfor %}
-                    </div>
-                    <div class="movie-actor">
-                        <span class="movie-actor">Cтрана: </span>
-                        {% for country in movie.countries %}
-                        <span class="movie-actor">{{ country.name }}{% if not forloop.last %}, {% endif %}</span>
-                        {% endfor %}
-                    </div>
-                    {% if movie.shortDescription %}
-                    <p class="card-text movie-description">{{ movie.shortDescription | linebreaks }}</p>
-                    {% else %}
-                    <p class="card-text movie-description">{{ movie.description | linebreaks | truncatewords:70}}</p>
-                    {% endif %}
-                </div>
-                <div class="card-footer">
-                    <a href="{% url 'movie_detail' %}?detail={{ movie.name }}" class="btn btn-primary">Подробнее</a>
-                </div>
-            </div>
-        </div>
-        {% empty %}
-        <p class="text-center">Ничего не найдено.</p>
-        {% endfor %}
+    <link rel="stylesheet" href="{% static 'css/find_movie.css' %}">
+    <body>
+    <div class="container mt-4">
+        <form class="d-flex mb-4" method="get">
+            <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Search" name="search"
+                   value="{{ request.GET.search }}">
+            <button class="btn btn-primary" type="submit">Найти</button>
+        </form>
     </div>
-    {% else %}
-    <h2 class="text-center movie-title">Введите запрос для поиска</h2>
-    {% endif %}
-</div>
-</body>
+    <div class="container movie-container">
+        {% if request.GET.search %}
+            <div class="row row-cols-1 row-cols-md-3 g-3">
+                {% for movie in response %}
+                    <div class="col">
+                        <div class="card h-100 movie-card">
+                            {% if movie.poster.url %}
+                                <img src="{{ movie.poster.url }}" class="card-img-top movie-image"
+                                     alt="{{ movie.name }}">
+                            {% else %}
+                                <img src="{% static 'img/img_1.png' %}" class="card-img-top movie-image"
+                                     alt="{{ movie.title }}">
+                            {% endif %}
+                            <div class="card-body movie-card-body">
+                                <h5 class="card-title movie-title"><a
+                                        href="{% url 'movie_detail' %}?detail={{ movie.id }}">
+                                    {{ movie.name }}</a></h5>
+                                {% if movie.year %}
+                                    <p class="card-text movie-year">Год: {{ movie.year }}</p>
+                                {% endif %}
+                                <p class="card-text movie-length">Продолжительность: {{ movie.movieLength }} мин.</p>
+                                <p class="card-text movie-rating">Рейтинг: {{ movie.rating.kp }}</p>
+                                <div class="movie-actors">
+                                    <span class="movie-actor">Жанр: </span>
+                                    {% for genre in movie.genres %}
+                                        <span class="movie-actor">{{ genre.name }}{% if not forloop.last %}
+                                            , {% endif %}</span>
+                                    {% endfor %}
+                                </div>
+                                <div class="movie-actor">
+                                    <span class="movie-actor">Cтрана: </span>
+                                    {% for country in movie.countries %}
+                                        <span class="movie-actor">{{ country.name }}{% if not forloop.last %}
+                                            , {% endif %}</span>
+                                    {% endfor %}
+                                </div>
+                                {% if movie.shortDescription %}
+                                    <p class="card-text movie-description">{{ movie.shortDescription | linebreaks }}</p>
+                                {% else %}
+                                    <p class="card-text movie-description">{{ movie.description | linebreaks | truncatewords:70 }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="card-footer">
+                                <a href="{% url 'movie_detail' %}?detail={{ movie.id }}" class="btn btn-primary">Подробнее</a>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p class="text-center">Ничего не найдено.</p>
+                {% endfor %}
+            </div>
+        {% else %}
+            <h2 class="text-center movie-title">Введите запрос для поиска</h2>
+        {% endif %}
+    </div>
+    </body>
 
 {% endblock %}
